@@ -12,12 +12,12 @@ jobs:
           command: |
             curl -s https://ramenipsum.herokuapp.com/paragraphs/1 > foo.txt
             cat foo.txt
-      # should store 3 files then:
-      # - README.md
-      # - ramenipsum.txt
-      # - foo.txt
       - store_artifacts:
-          path: .
+          path: README.md
+      - store_artifacts:
+          path: ramenipsum.txt
+      - store_artifacts:
+          path: foo.txt
       - run:
           name: Print artifact URLs
           environment:
