@@ -2,6 +2,7 @@ version: 2.1
 
 jobs:
   generate:
+    parallelism: 2
     resource_class: small
     docker:
       - image: cimg/base:stable
@@ -23,9 +24,9 @@ jobs:
           environment:
             CIRCLE_ARTIFACT_DOMAIN: output.circle-artifacts.com 
           command: |
-            echo "https://${CIRCLE_ARTIFACT_DOMAIN}/output/job/${CIRCLE_WORKFLOW_JOB_ID}/artifacts/0/README.md"
-            echo "https://${CIRCLE_ARTIFACT_DOMAIN}/output/job/${CIRCLE_WORKFLOW_JOB_ID}/artifacts/0/ramenipsum.txt"
-            echo "https://${CIRCLE_ARTIFACT_DOMAIN}/output/job/${CIRCLE_WORKFLOW_JOB_ID}/artifacts/0/foo.txt"
+            echo "https://${CIRCLE_ARTIFACT_DOMAIN}/output/job/${CIRCLE_WORKFLOW_JOB_ID}/artifacts/${CIRCLE_NODE_INDEX}/README.md"
+            echo "https://${CIRCLE_ARTIFACT_DOMAIN}/output/job/${CIRCLE_WORKFLOW_JOB_ID}/artifacts/${CIRCLE_NODE_INDEX}/ramenipsum.txt"
+            echo "https://${CIRCLE_ARTIFACT_DOMAIN}/output/job/${CIRCLE_WORKFLOW_JOB_ID}/artifacts/${CIRCLE_NODE_INDEX}/foo.txt"
 
 workflows:
   artifacts-are-fun:
