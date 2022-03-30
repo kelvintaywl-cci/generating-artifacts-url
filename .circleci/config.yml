@@ -27,7 +27,7 @@ jobs:
             echo "https://${CIRCLE_ARTIFACT_DOMAIN}/output/job/${CIRCLE_WORKFLOW_JOB_ID}/artifacts/0/ramenipsum.txt"
             echo "https://${CIRCLE_ARTIFACT_DOMAIN}/output/job/${CIRCLE_WORKFLOW_JOB_ID}/artifacts/0/foo.txt"
 
-worflows:
+workflows:
   artifacts-are-fun:
     jobs:
       - generate
