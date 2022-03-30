@@ -1,0 +1,33 @@
+version: 2.1
+
+jobs:
+  generate:
+    resource_class: small
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - run:
+          name: Generate foo.txt
+          command: |
+            curl -s https://ramenipsum.herokuapp.com/paragraphs/1 > foo.txt
+            cat foo.txt
+      # should store 3 files then:
+      # - README.md
+      # - ramenipsum.txt
+      # - foo.txt
+      - store_artifacts:
+          path: .
+      - run:
+          name: Print artifact URLs
+          environment:
+            CIRCLE_ARTIFACT_DOMAIN: output.circle-artifacts.com 
+          command: |
+            echo "https://${CIRCLE_ARTIFACT_DOMAIN}/output/job/${CIRCLE_WORKFLOW_JOB_ID}/artifacts/0/README.md"
+            echo "https://${CIRCLE_ARTIFACT_DOMAIN}/output/job/${CIRCLE_WORKFLOW_JOB_ID}/artifacts/0/ramenipsum.txt"
+            echo "https://${CIRCLE_ARTIFACT_DOMAIN}/output/job/${CIRCLE_WORKFLOW_JOB_ID}/artifacts/0/foo.txt"
+
+worflows:
+  artifacts-are-fun:
+    jobs:
+      - generate
